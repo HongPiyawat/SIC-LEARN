@@ -65,6 +65,8 @@ class AuthController extends Controller
         $user = auth()->user();
         return response()->json([
             'access_token' => $token,
+            'message' => 'เข้าสู่ระบบสำเร็จ',
+            'success' => '',
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => $user,

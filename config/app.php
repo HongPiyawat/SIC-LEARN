@@ -187,4 +187,8 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
     ])->toArray(),
 
+    'middleware' => [
+        'cors',
+    ],
+
 ];
