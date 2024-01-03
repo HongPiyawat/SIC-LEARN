@@ -32,7 +32,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|between:6,24',
             'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
+            'email' => 'required|string|email|max:100',
             'password' => 'required|string|confirmed|min:8',
         ]);
         if($validator->fails()){
@@ -44,6 +44,7 @@ class AuthController extends Controller
                 ));
         return response()->json([
             'message' => 'สมัครสมาชิกสำเร็จ',
+            'success' => '',
             'user' => $user
         ], 201);
     }
