@@ -8,20 +8,27 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return Permission::paginate(10);
     }
-    public function show_all (){
+
+    public function show_all()
+    {
         return Permission::all();
     }
-    public function store(Request $request){
-        $validator = Validator::make($request->all() , [
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'name' => ['required', 'string'],
             'title' => ['required', 'string'],
             'type' => ['required', 'string']
         ]);
 
-        if($validator->fails()) return response()->json(["status" => "error", "error" => $validator->errors()]);
+        if ($validator->fails()) {
+            return response()->json(["status" => "error", "error" => $validator->errors()]);
+        }
 
         $permission = Permission::create([
             'name' => $request->name,
@@ -33,7 +40,59 @@ class PermissionController extends Controller
 
         return response()->json([
             "message_code" => "add_permissions_success",
-            "message" => "add permissions successfully !"
+            "message" => "Add permissions successfully!"
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $permission = Permission::find($id);
+
+        if (!$permission) {
+            return response()->json([
+                "status" => "error",
+                "error" => "Permission not found."
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string'],
+            'title' => ['required', 'string'],
+            'type' => ['required', 'string']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["status" => "error", "error" => $validator->errors()]);
+        }
+
+        $permission->update([
+            'name' => $request->name,
+            'title' => $request->title,
+            'type' => $request->type,
+        ]);
+
+        return response()->json([
+            "message_code" => "update_permissions_success",
+            "message" => "Update permissions successfully!"
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $permission = Permission::find($id);
+
+        if (!$permission) {
+            return response()->json([
+                "status" => "error",
+                "error" => "Permission not found."
+            ], 404);
+        }
+
+        $permission->delete();
+
+        return response()->json([
+            "message_code" => "delete_permissions_success",
+            "message" => "Delete permissions successfully!"
         ]);
     }
 }
