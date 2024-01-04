@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controller\AuthController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,12 @@ use App\Http\Controller\AuthController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::get('users', [UserController::class, 'index']);
+Route::get('roles', [RoleController::class, 'index']);
+
+Route::get('permissions', [PermissionController::class, 'index']);
+Route::get('permissions/all', [PermissionController::class, 'show_all']);
 
 Route::middleware('api')->prefix('auth')->namespace('App\Http\Controllers')->group(function () {
     Route::post('/login', 'AuthController@login');
