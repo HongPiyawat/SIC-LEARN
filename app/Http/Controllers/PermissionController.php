@@ -39,8 +39,7 @@ class PermissionController extends Controller
         event(new Registered($permission));
 
         return response()->json([
-            "message_code" => "add_permissions_success",
-            "message" => "Add permissions successfully!"
+            "success" => ""
         ]);
     }
 
@@ -72,8 +71,7 @@ class PermissionController extends Controller
         ]);
 
         return response()->json([
-            "message_code" => "update_permissions_success",
-            "message" => "Update permissions successfully!"
+            "success" => ""
         ]);
     }
 
@@ -91,8 +89,7 @@ class PermissionController extends Controller
         $permission->delete();
 
         return response()->json([
-            "message_code" => "delete_permissions_success",
-            "message" => "Delete permissions successfully!"
+            "success" => ""
         ]);
     }
 }
