@@ -21,9 +21,10 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string'],
-            'title' => ['required', 'string'],
-            'type' => ['required', 'string']
+            'name' => 'required|string',
+            'guard_name' => 'required|string',
+            'title' => 'required|string',
+            'type' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -32,6 +33,7 @@ class PermissionController extends Controller
 
         $permission = Permission::create([
             'name' => $request->name,
+            'guard_name' => $request->guard_name,
             'title' => $request->title,
             'type' => $request->type,
         ]);
@@ -55,9 +57,10 @@ class PermissionController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string'],
-            'title' => ['required', 'string'],
-            'type' => ['required', 'string']
+            'name' => 'required|string',
+            'guard_name' => 'required|string',
+            'title' => 'required|string',
+            'type' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -66,6 +69,7 @@ class PermissionController extends Controller
 
         $permission->update([
             'name' => $request->name,
+            'guard_name' => $request->guard_name,
             'title' => $request->title,
             'type' => $request->type,
         ]);
