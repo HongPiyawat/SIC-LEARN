@@ -25,11 +25,11 @@ return [
          */
 
         'role' => Spatie\Permission\Models\Role::class,
+        'user' => \App\Models\User::class,
 
     ],
 
     'table_names' => [
-
         'roles' => 'roles',
         'permissions' => 'permissions',
         'model_has_permissions' => 'model_has_permissions',
@@ -43,7 +43,6 @@ return [
          */
         'role_pivot_key' => null, //default 'role_id',
         'permission_pivot_key' => null, //default 'permission_id',
-
         /*
          * Change this if you want to name the related model primary key other than
          * `model_id`.

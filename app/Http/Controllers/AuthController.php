@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Validator;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -42,6 +43,7 @@ class AuthController extends Controller
                     $validator->validated(),
                     ['password' => bcrypt($request->password)]
                 ));
+        $user->assignRole('Visitor');
         return response()->json([
             'message' => 'สมัครสมาชิกสำเร็จ',
             'success' => '',
@@ -59,13 +61,20 @@ class AuthController extends Controller
     }
 
     public function userProfile() {
-        return response()->json(auth()->user());
+        $user = auth()->user();
+        $roles = $user->roles; // ดึง Role จาก model_has_roles
+    
+        return response()->json([
+            'user' => $user,
+            'roles' => $roles,
+        ]);
     }
 
     protected function createNewToken($token){
         $user = auth()->user();
         return response()->json([
             'access_token' => $token,
+            "permissions"=> auth()->user()->getPermissionsViaRoles()->pluck('name'),
             'message' => 'เข้าสู่ระบบสำเร็จ',
             'success' => '',
             'token_type' => 'bearer',

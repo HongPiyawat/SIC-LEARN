@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->string('title')->after('guard_name');
-            $table->string('type');
+            $table->string('title')->after('name');
+            $table->string('type')->after('title');
         });
         Schema::table('roles', function (Blueprint $table) {
-            $table->string('title')->after('guard_name');
+            $table->string('title')->after('name');
         });
     }
 

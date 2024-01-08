@@ -13,7 +13,7 @@ class PermissionController extends Controller
         return Permission::paginate(10);
     }
 
-    public function show_all()
+    public function show_All()
     {
         return Permission::all();
     }
@@ -22,7 +22,6 @@ class PermissionController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'guard_name' => 'required|string',
             'title' => 'required|string',
             'type' => 'required|string',
         ]);
@@ -33,7 +32,6 @@ class PermissionController extends Controller
 
         $permission = Permission::create([
             'name' => $request->name,
-            'guard_name' => $request->guard_name,
             'title' => $request->title,
             'type' => $request->type,
         ]);
@@ -58,7 +56,6 @@ class PermissionController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'guard_name' => 'required|string',
             'title' => 'required|string',
             'type' => 'required|string',
         ]);
@@ -69,7 +66,6 @@ class PermissionController extends Controller
 
         $permission->update([
             'name' => $request->name,
-            'guard_name' => $request->guard_name,
             'title' => $request->title,
             'type' => $request->type,
         ]);
@@ -95,5 +91,10 @@ class PermissionController extends Controller
         return response()->json([
             "success" => ""
         ]);
+    }
+
+    public function assignRoles(Request $request, $permissionId)
+    {
+        return (new PermissionRoleController())->assignRoles($request, $permissionId);
     }
 }

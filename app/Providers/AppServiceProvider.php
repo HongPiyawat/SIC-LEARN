@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Providers\AssignRoleToRegisteredUser;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,4 +22,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
+    
 }
